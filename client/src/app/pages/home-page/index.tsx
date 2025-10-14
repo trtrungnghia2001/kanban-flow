@@ -8,6 +8,7 @@ import {
   CardTitle,
 } from "@/shared/components/ui/card";
 import { Link } from "react-router-dom";
+import kanbanPreview from "@/shared/assets/images/kanban-preview.png";
 
 const features = [
   {
@@ -30,7 +31,7 @@ const features = [
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-blue-50 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-gray-100">
-      <header className="flex justify-between items-center px-10 py-6">
+      <header className="flex justify-between items-center px-6 md:px-10 py-6">
         <motion.h1
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -115,7 +116,7 @@ export default function Home() {
           className="rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700"
         >
           <img
-            src="/preview-board.png"
+            src={kanbanPreview}
             alt="Kanban Preview"
             className="w-[80vw] max-w-4xl"
           />
