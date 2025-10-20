@@ -50,24 +50,23 @@ const KanbanHeader = () => {
               <SheetContent side={"left"}>
                 <SheetHeader>
                   <SheetTitle>
-                    <Link
-                      to={`/kanban/dashboard`}
-                      className="flex items-center gap-1"
-                    >
-                      <Trello className="text-blue-500" size={28} />
-                      <span className="font-bold text-base">Kanban</span>
-                    </Link>
-                  </SheetTitle>
-                  <SheetDescription asChild>
                     <div className="flex items-center gap-2">
                       <div className="w-8 aspect-square overflow-hidden rounded-full">
-                        <img src={user?.avatar} alt="avatar" loading="lazy" />
+                        <img
+                          src={user?.avatar}
+                          alt="avatar"
+                          loading="lazy"
+                          className="img"
+                        />
                       </div>
                       <div>
-                        <p className="font-medium">{user?.name}</p>
-                        <p className="text-xs">{user?.email}</p>
+                        <p className="font-medium text-sm">{user?.name}</p>
+                        <p className="text-xs text-gray-600">{user?.email}</p>
                       </div>
                     </div>
+                  </SheetTitle>
+                  <SheetDescription asChild>
+                    <div></div>
                   </SheetDescription>
                 </SheetHeader>
                 <KanbanSidebarLeft setOpen={setOpen} />
