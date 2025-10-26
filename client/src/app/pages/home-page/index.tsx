@@ -9,6 +9,7 @@ import {
 } from "@/shared/components/ui/card";
 import { Link } from "react-router-dom";
 import kanbanPreview from "@/shared/assets/images/kanban-preview.png";
+import { useAuthStore } from "@/features/auth/stores/auth.store";
 
 const features = [
   {
@@ -29,24 +30,39 @@ const features = [
 ];
 
 export default function Home() {
+  const { user } = useAuthStore();
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-blue-50 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-gray-100">
       <header className="flex justify-between items-center px-6 md:px-10 py-6">
         <motion.h1
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-2xl font-bold text-indigo-600 dark:text-indigo-400"
+          className="text-xl md:text-2xl font-bold text-indigo-600 dark:text-indigo-400"
         >
           <Link to={`/`}>KanbanFlow</Link>
         </motion.h1>
-        <div className="space-x-4">
-          <Button variant="ghost" asChild>
-            <Link to="/auth/signin">Đăng nhập</Link>
-          </Button>
-          <Button asChild>
-            <Link to="/auth/signup">Đăng ký</Link>
-          </Button>
-        </div>
+        {user ? (
+          <div className="flex items-center gap-4">
+            <Button variant="outline" asChild size={"sm"}>
+              <Link to="/kanban/dashboard">Bảng của bạn</Link>
+            </Button>
+            <Button
+              onClick={() => useAuthStore.getState().signout()}
+              size={"sm"}
+            >
+              Đăng xuất
+            </Button>
+          </div>
+        ) : (
+          <div className="space-x-4">
+            <Button variant="outline" asChild size={"sm"}>
+              <Link to="/auth/signin">Đăng nhập</Link>
+            </Button>
+            <Button asChild size={"sm"}>
+              <Link to="/auth/signup">Đăng ký</Link>
+            </Button>
+          </div>
+        )}
       </header>
 
       <motion.section
@@ -56,23 +72,23 @@ export default function Home() {
         transition={{ duration: 1 }}
       >
         <motion.h2
-          className="text-5xl font-extrabold mb-6"
+          className="text-3xl md:text-5xl font-extrabold mb-6"
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2 }}
         >
           Tổ chức công việc thông minh hơn
         </motion.h2>
-        <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mb-8">
+        <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mb-8">
           Quản lý task, cộng tác với đồng đội và theo dõi tiến độ dễ dàng — tất
           cả trong một bảng Kanban trực quan.
         </p>
 
         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
           <Button size="lg" asChild>
-            <a href="/kanban/dashboard" className="flex items-center gap-2">
-              Bắt đầu ngay <ArrowRight size={18} />
-            </a>
+            <Link to="/kanban/dashboard" className="flex items-center gap-2">
+              {user ? "Đi đến Kanban" : "Bắt đầu ngay"} <ArrowRight size={18} />
+            </Link>
           </Button>
         </motion.div>
       </motion.section>
@@ -130,9 +146,12 @@ export default function Home() {
       >
         <h3 className="text-3xl font-bold mb-6">Sẵn sàng bắt đầu chưa?</h3>
         <Button size="lg" asChild>
-          <a href="/register" className="flex items-center gap-2">
+          <Link
+            to={user ? "/kanban/dashboard" : "/auth/signup"}
+            className="flex items-center gap-2"
+          >
             Dùng thử miễn phí <ArrowRight size={18} />
-          </a>
+          </Link>
         </Button>
       </motion.section>
 
