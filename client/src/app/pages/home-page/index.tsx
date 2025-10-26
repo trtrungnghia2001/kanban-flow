@@ -1,36 +1,36 @@
-import { motion } from "framer-motion";
-import { ArrowRight, Layout, Users, Zap } from "lucide-react";
-import { Button } from "@/shared/components/ui/button";
+import { motion } from 'framer-motion'
+import { ArrowRight, Layout, Users, Zap } from 'lucide-react'
+import { Button } from '@/shared/components/ui/button'
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "@/shared/components/ui/card";
-import { Link } from "react-router-dom";
-import kanbanPreview from "@/shared/assets/images/kanban-preview.png";
-import { useAuthStore } from "@/features/auth/stores/auth.store";
+} from '@/shared/components/ui/card'
+import { Link } from 'react-router-dom'
+import kanbanPreview from '@/shared/assets/images/kanban-preview.png'
+import { useAuthStore } from '@/features/auth/stores/auth.store'
 
 const features = [
   {
-    title: "Kéo thả linh hoạt",
-    desc: "Tùy chỉnh cột và thẻ dễ dàng như chơi Lego.",
+    title: 'Kéo thả linh hoạt',
+    desc: 'Tùy chỉnh cột và thẻ dễ dàng như chơi Lego.',
     icon: <Layout className="w-10 h-10 text-indigo-500" />,
   },
   {
-    title: "Cộng tác thời gian thực",
-    desc: "Làm việc cùng đồng đội mà không sợ xung đột dữ liệu.",
+    title: 'Cộng tác thời gian thực',
+    desc: 'Làm việc cùng đồng đội mà không sợ xung đột dữ liệu.',
     icon: <Users className="w-10 h-10 text-indigo-500" />,
   },
   {
-    title: "Hiệu suất tối đa",
-    desc: "Tốc độ mượt mà, load nhanh như Linear và Notion.",
+    title: 'Hiệu suất tối đa',
+    desc: 'Tốc độ mượt mà, load nhanh như Linear và Notion.',
     icon: <Zap className="w-10 h-10 text-indigo-500" />,
   },
-];
+]
 
 export default function Home() {
-  const { user } = useAuthStore();
+  const { user } = useAuthStore()
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-blue-50 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-gray-100">
       <header className="flex justify-between items-center px-6 md:px-10 py-6">
@@ -43,22 +43,22 @@ export default function Home() {
         </motion.h1>
         {user ? (
           <div className="flex items-center gap-4">
-            <Button variant="outline" asChild size={"sm"}>
+            <Button variant="outline" asChild size={'sm'}>
               <Link to="/kanban/dashboard">Bảng của bạn</Link>
             </Button>
             <Button
               onClick={() => useAuthStore.getState().signout()}
-              size={"sm"}
+              size={'sm'}
             >
               Đăng xuất
             </Button>
           </div>
         ) : (
           <div className="space-x-4">
-            <Button variant="outline" asChild size={"sm"}>
+            <Button variant="outline" asChild size={'sm'}>
               <Link to="/auth/signin">Đăng nhập</Link>
             </Button>
-            <Button asChild size={"sm"}>
+            <Button asChild size={'sm'}>
               <Link to="/auth/signup">Đăng ký</Link>
             </Button>
           </div>
@@ -87,7 +87,7 @@ export default function Home() {
         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
           <Button size="lg" asChild>
             <Link to="/kanban/dashboard" className="flex items-center gap-2">
-              {user ? "Đi đến Kanban" : "Bắt đầu ngay"} <ArrowRight size={18} />
+              {user ? 'Đi đến Kanban' : 'Bắt đầu ngay'} <ArrowRight size={18} />
             </Link>
           </Button>
         </motion.div>
@@ -147,7 +147,7 @@ export default function Home() {
         <h3 className="text-3xl font-bold mb-6">Sẵn sàng bắt đầu chưa?</h3>
         <Button size="lg" asChild>
           <Link
-            to={user ? "/kanban/dashboard" : "/auth/signup"}
+            to={user ? '/kanban/dashboard' : '/auth/signup'}
             className="flex items-center gap-2"
           >
             Dùng thử miễn phí <ArrowRight size={18} />
@@ -159,5 +159,5 @@ export default function Home() {
         © 2025 KanbanFlow • Built with React, Tailwind, Motion & Shadcn
       </footer>
     </div>
-  );
+  )
 }
