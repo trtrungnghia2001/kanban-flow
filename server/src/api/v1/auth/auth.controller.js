@@ -224,8 +224,7 @@ export async function forgotPasswordController(req, res, next) {
       });
     }
 
-    // const resetToken = crypto.randomBytes(32).toString("hex");
-    const resetToken = `123456`;
+    const resetToken = crypto.randomBytes(32).toString("hex");
     const resetTokenExpires = Date.now() + 3600000; // 1 giờ
 
     user.resetPasswordToken = resetToken;
