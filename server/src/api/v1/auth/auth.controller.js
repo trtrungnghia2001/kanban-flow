@@ -233,6 +233,7 @@ export async function forgotPasswordController(req, res, next) {
 
     // --- Gửi email cho người dùng ---
     const resetUrl = `${ENV_CONFIG.URL_CLIENT}/auth/reset-password?token=${resetToken}`; // URL của frontend để đặt lại mật khẩu
+    console.log({resetToken})
     await sendPasswordResetEmail(user.email, resetUrl);
 
     return handleResponse(res, {
