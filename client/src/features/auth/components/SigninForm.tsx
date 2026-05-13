@@ -1,7 +1,7 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { Button } from "@/shared/components/ui/button";
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { Button } from '@/shared/components/ui/button'
 import {
   Form,
   FormControl,
@@ -9,57 +9,57 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/shared/components/ui/form";
-import { Input } from "@/shared/components/ui/input";
-import type { ISigninDTO } from "../types/auth";
-import { Link } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
-import { useAuthStore } from "../stores/auth.store";
-import { toast } from "sonner";
-import { useRedirectContext } from "../contexts/RedirectContext";
-import { memo, type ComponentProps, type FC } from "react";
+} from '@/shared/components/ui/form'
+import { Input } from '@/shared/components/ui/input'
+import type { ISigninDTO } from '../types/auth'
+import { Link } from 'react-router-dom'
+import { useMutation } from '@tanstack/react-query'
+import { useAuthStore } from '../stores/auth.store'
+import { toast } from 'sonner'
+import { useRedirectContext } from '../contexts/RedirectContext'
+import { memo, type ComponentProps, type FC } from 'react'
 
 const formSchema = z.object({
   email: z.string().min(1, {
-    message: "Email is required.",
+    message: 'Email is required.',
   }),
   password: z.string().min(8, {
-    message: "Password must be at least 8 characters.",
+    message: 'Password must be at least 8 characters.',
   }),
-});
+})
 
 const initValues: ISigninDTO = {
-  email: "",
-  password: "",
-};
+  email: 'test@gmail.com',
+  password: 'Password@123',
+}
 
-const SigninForm: FC<ComponentProps<"div">> = ({ ...props }) => {
-  const { handleRedirectWhenSignInSuccess } = useRedirectContext();
+const SigninForm: FC<ComponentProps<'div'>> = ({ ...props }) => {
+  const { handleRedirectWhenSignInSuccess } = useRedirectContext()
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: initValues,
-  });
+  })
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    submitResult.mutate(values);
+    submitResult.mutate(values)
   }
 
-  const { signin } = useAuthStore();
+  const { signin } = useAuthStore()
   const submitResult = useMutation({
     mutationFn: async (data: ISigninDTO) => {
-      return await signin(data);
+      return await signin(data)
     },
     onSuccess(data) {
-      toast.success(data?.message);
-      handleRedirectWhenSignInSuccess(data.data.user);
+      toast.success(data?.message)
+      handleRedirectWhenSignInSuccess(data.data.user)
     },
     onError(error) {
-      toast.error(error.message);
+      toast.error(error.message)
     },
-  });
+  })
 
   return (
     <div {...props}>
@@ -108,7 +108,7 @@ const SigninForm: FC<ComponentProps<"div">> = ({ ...props }) => {
             </Link>
           </div>
           <div className="text-center text-sm">
-            Already have account?{" "}
+            Already have account?{' '}
             <Link to={`/auth/signup`} className="underline underline-offset-4">
               Sign up
             </Link>
@@ -116,7 +116,7 @@ const SigninForm: FC<ComponentProps<"div">> = ({ ...props }) => {
         </form>
       </Form>
     </div>
-  );
-};
+  )
+}
 
-export default memo(SigninForm);
+export default memo(SigninForm)
